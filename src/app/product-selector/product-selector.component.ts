@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from '../models/product';
+import { PurchaseSummaryDialogComponent } from '../purchase-summary-dialog/purchase-summary-dialog.component';
 
 @Component({
   selector: 'app-product-selector',
@@ -7,6 +10,9 @@ import { Product } from '../models/product';
   styleUrls: ['./product-selector.component.scss']
 })
 export class ProductSelectorComponent {
+
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {}
+
   products: Product[] = [
     { code: '7501000624089', name: 'Arcoiris', stock: 4, purchase_price: 5.91, sale_price: 6.0, image: 'https://res.cloudinary.com/walmart-labs/image/upload/d_default.jpg/w_960,dpr_auto,f_auto,q_auto:best/gr/images/product-images/img_large/00750100062408L.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF' },
     { code: '75003135', name: 'Boing Guayaba', stock: 4, purchase_price: 10.25, sale_price: 12.0, image: 'https://res.cloudinary.com/walmart-labs/image/upload/d_default.jpg/w_960,dpr_auto,f_auto,q_auto:best/gr/images/product-images/img_large/00000007500177L.jpg' },
@@ -83,6 +89,30 @@ export class ProductSelectorComponent {
     }
   }
   
+  openPurchaseSummaryDialog() {
+    if (this.selectedProducts.length === 0) {
+      this.showSnackBar('Seleccione al menos un producto para comprar');
+      return;
+    }
 
-  
+    const dialogRef = this.dialog.open(PurchaseSummaryDialogComponent, {
+      data: {
+        selectedProducts: this.selectedProducts,
+        total: this.getTotal(),
+        userID: '',
+        amountToPay: 0,
+        purchase: () => {
+          console.log('Compra realizada');
+          dialogRef.close();
+        },
+      },
+    });
+  }
+  showSnackBar(message: string) {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+  }
 }

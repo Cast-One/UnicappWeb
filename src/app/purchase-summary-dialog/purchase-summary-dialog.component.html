@@ -1,0 +1,26 @@
+<h1 mat-dialog-title class="text-center">Resumen de compra</h1>
+<div mat-dialog-content class="text-center">
+  <div *ngFor="let product of data.selectedProducts">
+    <p>{{ product.name }} x{{ product.quantity }} - Total: ${{ product.sale_price * product.quantity }}</p>
+  </div>
+  <p class="font-semibold mt-4">Total de compra: ${{ data.total }}</p>
+  <mat-form-field appearance="outline" class="w-full mt-4">
+    <mat-label>ID del usuario</mat-label>
+    <input matInput type="text" [(ngModel)]="data.userID" required />
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="w-full mt-4">
+    <mat-label>Monto a pagar</mat-label>
+    <input matInput type="number" [(ngModel)]="data.amountToPay" required />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="justify-center">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!data.userID || !data.amountToPay"
+    (click)="data.purchase()"
+  >
+    Comprar
+  </button>
+</div>

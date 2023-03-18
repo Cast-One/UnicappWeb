@@ -1,0 +1,26 @@
+.selected-products {
+    list-style-type: disc;
+    padding-inline-start: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-top: 16px;
+  }
+  
+  input {
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  mat-dialog-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
