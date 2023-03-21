@@ -11,10 +11,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 
+
 import { ProductSelectorComponent } from './product-selector/product-selector.component';
 import { PurchaseSummaryDialogComponent } from './purchase-summary-dialog/purchase-summary-dialog.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { AuthInterceptor } from './auth.interceptor';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    SweetAlert2Module.forRoot(),
     
   ],
   providers: [

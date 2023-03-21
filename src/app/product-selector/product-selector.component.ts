@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 import { ApiService } from '../api.service';
 import { BuyRequest } from '../models/buy-request';
 import { Product } from '../models/product';
@@ -184,20 +185,54 @@ export class ProductSelectorComponent {
 
     this.apiService.createBuy(buyRequest).subscribe(
       (response) => {
-        console.log(response);        
         let successMessage = '¡Compra realizada exitosamente!';
+        
         if (response.Data && response.Data.remaining_amount !== 0) {
-          successMessage += ` \nRecuerda que quedan pendiente el pago de $${response.Data.remaining_amount} pesos`;
+          successMessage += ` Recuerda que quedan pendiente el pago de $${response.Data.remaining_amount} pesos`;
         }
-        this.showSnackBar(successMessage);
+        
+        this.showSuccessAlert('Éxito', successMessage);
         this.resetAndFetchProducts();
-
       },
       (error) => {
-        console.error('Error:', error);
+        let errorMessage = error.error.Message.client_code[0];
+    
+        if (errorMessage.includes('There is no user with code')) {
+          const clientCode = buyRequest.client_code;
+          errorMessage = `No existe un usuario registrado con el código ${clientCode}, revisa los datos e intenta nuevamente`;
+        }
+    
+        this.showErrorAlert('Error', errorMessage);
       }
     );
     
+    
+    
+    
+  }
+
+  showSuccessAlert(title: string, text: string) {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+      customClass: {
+        container: 'custom-alert',
+      },
+    });
+  }
+
+  showErrorAlert(title: string, text: string) {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: 'error',
+      confirmButtonText: 'Aceptar',
+      customClass: {
+        container: 'custom-alert',
+      },
+    });
   }
 
   
