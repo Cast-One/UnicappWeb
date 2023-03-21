@@ -1,0 +1,21 @@
+.selected-products {
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+  }
+
+
+  .error-snackbar {
+    background-color: #f44336;
+    color: white;
+  }
+  
+
+  .clickable {
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  
+  .clickable:active {
+    transform: scale(0.95);
+  }
+  

@@ -8,13 +8,21 @@
 <div class="flex h-full">
   <div class="grid grid-cols-3 gap-4 w-3/4 h-full overflow-auto">
     <div
-      *ngFor="let product of products"
-      class="border p-4 rounded shadow"
-      (click)="selectProduct(product)"
-      [ngClass]="{ 'bg-green-100': product.selected }"
-    >
-      <img [src]="product.image" class="h-32 w-32 mx-auto mb-4" />
-      <p class="font-semibold text-lg">{{ product.name }}</p>
+    *ngFor="let product of products"
+    class="border p-4 rounded shadow"
+    (click)="selectProduct(product)"
+    [ngClass]="{
+      'bg-green-100': product.selected,
+      'bg-gray-200': product.stock === 0,
+      clickable: product.stock > 0
+    }"
+  >
+    <img
+    [src]="product.image"
+    class="h-32 w-32 mx-auto mb-4"
+    [ngClass]="{ 'opacity-50': product.stock === 0 }"
+  />
+        <p class="font-semibold text-lg">{{ product.name }}</p>
       <p>Precio: ${{ product.sale_price }}</p>
       <p [ngClass]="{'text-red-500': product.stock === 0}">Stock: {{ product.stock }}</p>
     </div>
@@ -51,3 +59,5 @@
     </div>
   </div>
 </div>
+
+

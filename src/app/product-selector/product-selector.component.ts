@@ -87,7 +87,7 @@ export class ProductSelectorComponent {
 
   selectProduct(product: Product): void {
     if (product.stock === 0) {
-      alert('Este producto no tiene stock disponible.');
+      this.showErrorSnackBar('Este producto no tiene stock disponible.');
       return;
     }
   
@@ -235,6 +235,15 @@ export class ProductSelectorComponent {
     });
   }
 
+  showErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['error-snackbar']
+    });
+  }
+  
   
   
 }
