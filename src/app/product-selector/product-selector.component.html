@@ -16,7 +16,7 @@
       <img [src]="product.image" class="h-32 w-32 mx-auto mb-4" />
       <p class="font-semibold text-lg">{{ product.name }}</p>
       <p>Precio: ${{ product.sale_price }}</p>
-      <p>Stock: {{ product.stock }}</p>
+      <p [ngClass]="{'text-red-500': product.stock === 0}">Stock: {{ product.stock }}</p>
     </div>
   </div>
 
