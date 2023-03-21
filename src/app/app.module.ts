@@ -9,9 +9,13 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
 
 import { ProductSelectorComponent } from './product-selector/product-selector.component';
 import { PurchaseSummaryDialogComponent } from './purchase-summary-dialog/purchase-summary-dialog.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +26,7 @@ import { PurchaseSummaryDialogComponent } from './purchase-summary-dialog/purcha
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatDialogModule,
     MatSnackBarModule,
@@ -29,8 +34,16 @@ import { PurchaseSummaryDialogComponent } from './purchase-summary-dialog/purcha
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    MatIconModule
+    
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [PurchaseSummaryDialogComponent],
 })
