@@ -1,5 +1,5 @@
 import { Product } from './product';
-export interface ResponseProducts {
+export interface ProductResponse {
     Success: boolean;
     Message: null;
     Data:  Product[];

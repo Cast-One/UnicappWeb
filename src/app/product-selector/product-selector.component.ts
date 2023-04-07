@@ -3,11 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
 import { ApiService } from '../api.service';
-import { BuyRequest } from '../models/buy-request';
-import { Product } from '../models/product';
-import { ProductRequest } from '../models/product-request';
-import { ResponseProducts } from '../models/response';
+import { BuyRequest } from '../models/Buys/buy-request';
+import { ProductRequest } from '../models/Product/product-request';
 import { PurchaseSummaryDialogComponent } from '../purchase-summary-dialog/purchase-summary-dialog.component';
+import { Product } from '../models/Product/product';
+import { ProductResponse } from '../models/Product/product-response';
 
 @Component({
   selector: 'app-product-selector',
@@ -28,7 +28,7 @@ export class ProductSelectorComponent {
   getProducts(){
     this.apiService.getProducts().subscribe(
       
-      (data: ResponseProducts) => {
+      (data: ProductResponse) => {
         this.products = data.Data;
         // this.products = data;
       },
@@ -41,7 +41,7 @@ export class ProductSelectorComponent {
   resetAndFetchProducts(): void {
     this.selectedProducts = [];
     this.apiService.getProducts().subscribe(
-      (data: ResponseProducts) => {
+      (data: ProductResponse) => {
         this.products = data.Data;
       },
       (error) => {

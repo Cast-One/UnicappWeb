@@ -1,5 +1,4 @@
-import { Product } from "./product";
-import { ProductRequest } from './product-request';
+import { ProductRequest } from '../Product/product-request';
 
 export interface BuyRequest {
     client_code: number | string;
